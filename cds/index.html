@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./bootstrap-5.2.2-dist/css/bootstrap.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="./real api.css">
+    <title>Document</title>
+</head>
+<body id="bod" onload="test()">
+    <div class="container shadow">
+        <button onclick="dark()" id="dak" class="btn btn-light">Dark mode</button>
+        <div id="apiDetails" class="details">
+            <div class="d-felex">
+                <input type="text" name="" id="userFind" class="f">
+                <button onclick="allData()">Search</button>
+            </div>
+            <div id="load">
+                <p class="pop">Porpular city</p>
+                <p class="text-white" style="padding-left: 30px;">New York</p>
+                <p class="text-white" style="padding-left: 30px;">Dubai</p>
+                <p class="text-white" style="padding-left: 30px;">Australia</p>
+                <p class="text-white" style="padding-left: 30px;">Saudi Arabia</p>
+            </div>
+          
+        </div>
+        <div id="other">
+           <div class="d-flex">
+            <img src="./coolsky-removebg-preview.png" alt="" class="adjust" id="add">
+            <img src="./hotsky2-removebg-preview.png" alt="">
+           </div>
+        </div>
+    </div>
+   
+    <script>
+        // let url="https://jsonplaceholder.typicode.com/users"
+        // let url2="https://api.github.com/users"
+
+        let longtitude
+        let latitude
+        const test=()=>{
+            navigator.geolocation.getCurrentPosition(location=>{
+                console.log(location.coords.latitude,location.coords.longitude)
+                longtitude=location.coords.longitude
+                latitude=location.coords.latitude
+            })
+        }
+
+        const allData = async () => {
+            // load.innerHTML=`<img src="load.gif" />`
+            if(userFind.value==""){
+                apiDetails.innerHTML = `
+            <div class="general">
+                <div class="d-felex">
+                   <input type="text" name="" id="userFind" class="f">
+                   <button onclick="allData()">Search</button>
+                </div>
+                <p>Can't search for an empty country</p>
+            </div>
+            `
+            }
+            else{
+            let imgShow
+            let discp
+            let country = userFind.value
+            let APIkey = "ccc264012a414b5dca32ed5a587f6e3d"
+            let url3 = `https://api.openweathermap.org/data/2.5/weather?q=${country}&appid=${APIkey}&units=metric`
+            let response = await fetch(url3)
+            let convertResponse = await response.json()
+            console.log(convertResponse);
+            let conv=Math.round(convertResponse.main.temp)
+            let main
+            if(conv==10||conv<10){
+                discp="Cold"
+                imgShow=`<img src="coolsky-removebg-preview.png" class="ig" />`
+            }
+            else if(conv>10 && conv<20){
+                imgShow=`<img src="coolsky-removebg-preview.png" class="ig" />`
+                discp="Cool"
+            }
+            else{
+                imgShow=`<img src="hotsky2-removebg-preview.png" class="img2" />`
+                discp="Hot"
+            }
+            for (let index = 0;  index< convertResponse.weather.length; index++) {
+                console.log(convertResponse.weather[index].main)
+                main=convertResponse.weather[index].main
+                
+            }
+            apiDetails.innerHTML = `
+            <div class="d-flex" style="justify-content:space-between">
+             <h2 style="color:white"> ${country} </h2>
+             <button class="btn btn-light" onclick="back()">Back</button>
+            </div>
+            <p style="font-size:15x;color:white">Updated 1min ago</p>
+            <div class="grid">
+              <div class="div p-3">
+                <h3 class="text-white deg" style="font-size:40px !important">${conv}<i class="ri-celsius-fill"></i><h3>
+                <p class="text-white deg" style="font-weight:1000; margin-top:30px">${discp}</p>
+              </div>
+              <div class="div" id="imgShow">
+              ${imgShow}  
+              </div>
+            </div>
+            `   
+            other.innerHTML=`
+            <div class="d-flex down-div">
+                <div class="div shadow">
+                    <div style="background-color:white;border-radius:300px" class="shadow order">
+                    <img src="./humidity-removebg-preview.png" class="icon" />
+                    </div>
+                    <p>Humidity ${convertResponse.main.humidity}%</p>
+                </div>
+                <div class="div shadow">
+                    <div style="background-color:white;border-radius:300px" class="shadow order">
+                    <img src="./pressure-removebg-preview.png" class="icon" />
+                    </div>
+                    <p>Pressure ${convertResponse.main.pressure}%</p>
+                </div>
+                <div class="div shadow">
+                    <div style="background-color:white;border-radius:300px" class="shadow order">
+                    <img src="./latitute.png" class="icon" />
+                    </div>
+                    <p>Lat ${latitude}%</p>    
+                </div>
+            </div>
+            <div class="d-flex down-di">
+                <div class="div shadow">
+                    <div style="background-color:white;border-radius:300px" class="shadow order">
+                    <img src="./sea.png" class="icon" />
+                    </div>
+                    <p>Sea_Level ${convertResponse.main.sea_level}%</p>        
+                </div>
+                <div class="div shadow">
+                    <div style="background-color:white;border-radius:300px" class="shadow order">
+                    <img src="./cloud.png" class="icon" />
+                    </div>
+                    <p>Weather "${main}"</p>       
+                </div>
+                <div class="div shadow">
+                    <div style="background-color:white;border-radius:300px" class="shadow order">
+                    <img src="./wind.png" class="icon" style="height:100px !important"/>
+                    </div>
+                    <p>Wind_deg ${convertResponse.wind.deg}<i class="ri-celsius-fill"></i></p>       
+                </div>
+            </div>
+            <div class="d-flex down-di">
+                <div class="div shadow">
+                    <div style="background-color:white;border-radius:300px" class="shadow order">
+                    <img src="./longtitude.jpg" class="icon" />
+                    </div>
+                    <p>Lon ${longtitude}%</p>        
+                </div>
+                <div class="div shadow">
+                    <div style="background-color:white;border-radius:300px" class="shadow order">
+                    <img src="./sun.png" class="icon" />
+                    </div>
+                    <p>Sunrise ${convertResponse.sys.sunrise}</p> 
+                </div>
+                <div class="div shadow">
+                    <div style="background-color:white;border-radius:300px" class="shadow order">
+                    <img src="./sun2.png" class="icon" />
+                    </div>
+                    <p>Sunset ${convertResponse.sys.sunset}</p>     
+                </div>
+                </div>  
+            `
+            }
+        }
+        const back=()=>{
+            apiDetails.innerHTML=`
+            <div class="d-felex">
+                <input type="text" name="" id="userFind" class="f">
+                <button onclick="allData()">Search</button>
+            </div>
+            <p class="pop">Porpular city</p>
+            <p class="text-white" style="padding-left: 30px;">New York</p>
+            <p class="text-white" style="padding-left: 30px;">Dubai</p>
+            <p class="text-white" style="padding-left: 30px;">Australia</p>
+            <p class="text-white" style="padding-left: 30px;">Saudi Arabia</p>
+        </div>
+            `
+        //     other.innerHTML=`
+        //     <div class="d-flex">
+        //     <img src="./coolsky-removebg-preview.png" alt="" class="adjust" id="add">
+        //     <img src="./hotsky2-removebg-preview.png" alt="">
+        //    </div>
+        //     `
+        }
+        const dark=()=>{
+            if (dak.innerHTML=="Dark mode"){
+            document.getElementById('bod').className="bod"
+            document.getElementById('apiDetails').className="details2"
+            document.getElementById('other').className="color"
+            // document.getElementById('add').className="adjuster"
+                dak.innerHTML="Light mode"
+            }
+            else if(dak.innerHTML=="Light mode"){
+                document.getElementById('bod').classList="body"
+                document.getElementById('apiDetails').className="details"
+                document.getElementById('other').className="color2"
+                // document.getElementById('add').className="adjust"
+                dak.innerHTML="Dark mode"
+            }
+        }
+    </script>
+</body>
+</html>

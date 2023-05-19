@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap-5.2.2-dist/bootstrap-5.2.2-dist/css/bootstrap.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container p-5 shadow">
+        <div style="display: flex; justify-content: center; width: 25%; margin: auto;">
+            <input type="number" name="" id="matric" placeholder="Student Id" class="form-control">
+        </div>
+        <input type="text" name="" class="form-control mt-2" id="dep" placeholder="Department">
+        <input type="text" name="" class="form-control mt-2" id="fac" placeholder="Option">
+        <input type="text" name="" class="form-control mt-2" id="pro" placeholder="Program">
+        <input type="text" name="" class="form-control mt-2" id="cgpa" placeholder="Current CGPA">
+        <input type="text" name="" class="form-control mt-2" id="year" placeholder="Year of entering">
+        <button onclick="submit()" class="btn btn-success mt-2">Submit</button>
+    </div>
+    <script>
+        let getstudent=JSON.parse(localStorage.getItem("everystudent"))
+        let index= localStorage.getItem("mydetails")   
+        let mydetails=getstudent[index].details
+        const submit=()=>{
+            if(dep.value==""|| fac.value=="" || pro.value=="" || cgpa.value=="" || year.value==""){
+                alert("Fill all details")
+            }
+            else{
+                let studentDetails={
+                id:matric.value,
+                department:dep.value,
+                faculty:fac.value,
+                program:pro.value,
+                cgp:cgpa.value,
+                yea:year.value
+            }
+            mydetails.push(studentDetails)
+            console.log(mydetails);
+            localStorage.setItem('everystudent',JSON.stringify(getstudent))
+            window.location.href="dashbord.html"
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap-5.2.2-dist/bootstrap-5.2.2-dist/css/bootstrap.css">
+</head>
+<body>
+    <div class="container p-5 shadow text-center">
+        <marquee behavior="" direction="right">WELCOME TO DOGLAD COLLEGE</marquee>
+        <input type="text" placeholder="Phone Number" id="phone" required class="form-control mt-2">
+        <input type="password" placeholder="password" id="pass" required class="form-control mt-2">
+        <button class="btn btn-success mt-2" onclick="submit()">log in</button>
+    </div>
+    <script>
+         let getstudent=JSON.parse(localStorage.getItem("everystudent"))
+         let found=false
+         const submit=()=>{
+            getstudent.map((onestudent, i)=>{
+                console.log(onestudent.nameOne);
+                if(phone.value==onestudent.phonenumber && pass.value==onestudent.studentpassword){
+                    found=true
+                    localStorage.setItem("mydetails", i)
+                }
+            })
+            if(found==true){
+                alert("welcome")
+                window.location.href="details.html"
+            }
+            else{
+                alert("Incorrect credential")
+            }
+         }
+    </script>
+</body>
+</html>

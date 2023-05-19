@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap-5.2.2-dist/bootstrap-5.2.2-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./dash.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="cover" id="cover" onclick="hide()">
+        <div class="profile p-3" id="disp2"></div>
+    </div>
+    <div class="container p-3 bg-white"  style="position: absolute; top: 50%;left: 50%; transform: translate(-50%, -50%);">
+        <button class="btn btn-success" onclick="show()">See your profile</button>
+        <div class="container shadow p-4 mt-3" id="display"></div>
+    </div>
+    <script>
+         let getstudent=JSON.parse(localStorage.getItem("everystudent"))
+         let index= localStorage.getItem("mydetails")
+         let mydetails=getstudent[index].details
+         function disp(){
+            let level=getstudent[index].class
+            display.innerHTML=`<h2>All student details</h2>`
+            mydetails.map((detail, i)=>{
+             display.innerHTML+=`
+             <div class="mt-3">
+                <div class="shadow p-3 mt-5">
+                <h4>Student id: ${detail.id}</h4>
+             <div class="d-flex">
+               <div style="border: 1px solid; width:100%; text-align:center">Department</div>
+               <div style="border: 1px solid; width:100%; text-align:center">Option</div>
+               <div style="border: 1px solid; width:100%; text-align:center">Program</div>
+               <div style="border: 1px solid; width:100%; text-align:center">Current CGPA</div>
+               <div style="border: 1px solid; width:100%; text-align:center">Year of entering</div>
+               <div style="border: 1px solid; width:100%; text-align:center">Level</div>
+             </div>
+             <div class="d-flex">
+               <div style="border: 1px solid; width:100%; text-align:center">${detail.department}</div>
+               <div style="border: 1px solid; width:100%; text-align:center">${detail.faculty}</div>
+               <div style="border: 1px solid; width:100%; text-align:center">${detail.program}</div>
+               <div style="border: 1px solid; width:100%; text-align:center">${detail.cgp}</div>
+               <div style="border: 1px solid; width:100%; text-align:center">${detail.yea}</div>
+               <div style="border: 1px solid; width:100%; text-align:center">${level}</div>
+             </div>
+             <div class="mt-3">
+                <button class="btn btn-warning" onclick="edit${i})">Edit</button>
+                <button class="btn btn-danger" onclick="del(${i})">Delete</button>
+            </div>
+            </div>
+            </div>
+             `
+            })
+            disp2.innerHTML+=`
+            <input type="text" name="" class="form-control mt-2" id="dep" value="${getstudent[index].nameOne}" readonly>
+        <input type="text" name="" class="form-control mt-2" id="fac" value="${getstudent[index].nametwo}" readonly>
+        <input type="text" name="" class="form-control mt-2" id="pro" value="${getstudent[index].phonenumber}" readonly>
+        <input type="text" name="" class="form-control mt-2" id="cgpa" value="${getstudent[index].studentage}" readonly>
+        <input type="text" name="" class="form-control mt-2" id="year" value="${getstudent[index].studentgender}" readonly>
+        <button onclick="hide()" class="btn btn-success mt-2">Close</button>
+            `
+         }
+         disp()
+         const show=()=>{
+            document.getElementById('disp2').className="profile p-3"
+            document.getElementById('cover').style.display="block"
+            document.getElementById('cover').classList="cover"
+         }
+         const hide=()=>{
+            document.getElementById('disp2').className="profile2 p-3"
+            document.getElementById('cover').classList="cover2"
+            setTimeout(function(){document.getElementById('cover').style.display="none"}, 270)
+         }
+
+         const del=(takeaway)=>{
+            mydetails.splice(takeaway,1)
+            disp()
+            localStorage.setItem('everystudent', JSON.stringify(getstudent))
+         }
+    </script>
+</body>
+</html>
