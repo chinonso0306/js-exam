@@ -1,0 +1,89 @@
+.navbar{
+    width: 1260px;
+    height: 70px;
+    background-color: rgba(10, 233, 29, 0.589);
+    margin: auto;
+
+}
+
+.bar{
+    display: flex;
+    margin-left: 100px;
+
+}
+.h3{
+    margin-left: 20px;
+}
+
+.barbtn{
+    width: 200px;
+    border-radius: 7px;
+    background-color:   rgba(0, 0, 0, 0);
+    margin-left: 20px;
+}
+
+
+
+.divs{
+    width: 1260px;
+    margin: auto;
+    height: 300px;
+    background-color: rgb(0, 1, 2);
+    box-shadow: 4px;
+    /* border-radius: 9px; */
+    border-bottom-left-radius: 9px;
+    color: white;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-style: italic;
+    font-size: 100px;
+    font-weight: 100;
+}
+
+.p{
+    margin-left: 40px;
+    justify-items: center;
+
+}
+
+.box{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    
+}
+
+.allimg{
+    width: 220px;
+    height: 330px;
+    border-radius: 9px;
+    margin: auto;
+}
+
+.divori{
+    width: 230px;
+    height: 350px;
+    background-color: bisque;
+    border-color: black;
+    border: 3px solid black;
+    margin-left: 10px;
+    border-radius: 10px;
+}
+
+.down{
+    
+        width: 1260px;
+        margin: auto;
+        height: 400px;
+        background-color: rgb(0, 1, 2);
+        box-shadow: 4px;
+        border-radius: 9px;
+        margin-top: 40px;
+}
+
+.downlist{
+    margin-bottom: 60px;
+    margin: auto;
+    width: 1250px;
+    height: 50px;
+    background-color: white;
+
+}
